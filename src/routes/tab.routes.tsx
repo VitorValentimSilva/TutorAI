@@ -11,6 +11,9 @@ import {
   FontAwesome6,
   AntDesign,
 } from "@expo/vector-icons";
+import { useContext } from "react";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { colors } from "../styles/colors";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,25 +22,18 @@ function makeHeaderOptions({
   headerIcon,
   title,
   subtitle,
-  backgroundClass = "bg-[#3B82F6]",
-  backgroundColorHex = "#3B82F6",
+  backgroundColorHex,
 }: {
   tabIcon: (props: { color: string }) => React.ReactNode;
   headerIcon?: React.ReactNode;
   title: string;
   subtitle?: string;
-  backgroundClass?: string;
   backgroundColorHex?: string;
 }) {
   return {
     tabBarIcon: ({ color }: { color: string }) => tabIcon({ color }),
     headerTitle: () => (
-      <CustomHeader
-        icon={headerIcon}
-        title={title}
-        subtitle={subtitle}
-        backgroundClass={backgroundClass}
-      />
+      <CustomHeader icon={headerIcon} title={title} subtitle={subtitle} />
     ),
     headerStyle: {
       backgroundColor: backgroundColorHex,
@@ -46,11 +42,12 @@ function makeHeaderOptions({
       shadowOpacity: 0,
     },
     headerTitleAlign: "center" as const,
-    headerTintColor: "#fff",
   };
 }
 
 export default function TabRoutes() {
+  const { isDark } = useContext(ThemeContext);
+
   return (
     <Tab.Navigator screenOptions={{}}>
       <Tab.Screen
@@ -60,11 +57,16 @@ export default function TabRoutes() {
           tabIcon: ({ color }) => (
             <Ionicons name="chatbubble-outline" size={22} color={color} />
           ),
-          headerIcon: <Ionicons name="sparkles" size={24} color="white" />,
+          headerIcon: (
+            <Ionicons
+              name="sparkles"
+              size={24}
+              color={isDark ? colors.textInverseDark : colors.textInverseLight}
+            />
+          ),
           title: "TutorAI",
           subtitle: "Seu tutor pessoal",
-          backgroundClass: "bg-[#3B82F6]",
-          backgroundColorHex: "#3B82F6",
+          backgroundColorHex: `${isDark ? colors.primaryDark : colors.primaryLight}`,
         })}
       />
 
@@ -75,11 +77,16 @@ export default function TabRoutes() {
           tabIcon: ({ color }) => (
             <FontAwesome6 name="brain" size={22} color={color} />
           ),
-          headerIcon: <FontAwesome6 name="brain" size={24} color="white" />,
+          headerIcon: (
+            <FontAwesome6
+              name="brain"
+              size={24}
+              color={isDark ? colors.textInverseDark : colors.textInverseLight}
+            />
+          ),
           title: "Quizzes",
           subtitle: "Teste seus conhecimentos",
-          backgroundClass: "bg-[#0DA575]",
-          backgroundColorHex: "#0DA575",
+          backgroundColorHex: `${isDark ? colors.secondaryDark : colors.secondaryLight}`,
         })}
       />
 
@@ -90,11 +97,16 @@ export default function TabRoutes() {
           tabIcon: ({ color }) => (
             <FontAwesome5 name="history" size={22} color={color} />
           ),
-          headerIcon: <FontAwesome5 name="history" size={24} color="white" />,
+          headerIcon: (
+            <FontAwesome5
+              name="history"
+              size={24}
+              color={isDark ? colors.textInverseDark : colors.textInverseLight}
+            />
+          ),
           title: "Histórico",
           subtitle: "Acompanhe seu progresso",
-          backgroundClass: "bg-[#0DA575]",
-          backgroundColorHex: "#0DA575",
+          backgroundColorHex: `${isDark ? colors.tertiaryDark : colors.tertiaryLight}`,
         })}
       />
 

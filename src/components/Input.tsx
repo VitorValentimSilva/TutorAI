@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Text, TextInput, TextInputProps, View } from "react-native";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -14,11 +16,20 @@ export default function Input({
   error,
   ...props
 }: InputProps) {
+  const { isDark } = useContext(ThemeContext);
+
   return (
     <View className={`w-full ${props.className ?? ""}`}>
       {label && (
         <Text className="text-gray-700 mb-2 text-base">
-          {label} {required && <Text className="text-red-500">*</Text>}
+          {label}
+          {required && (
+            <Text
+              className={`${isDark ? "text-errorDark" : "text-errorLight"}`}
+            >
+              *
+            </Text>
+          )}
         </Text>
       )}
 
@@ -30,7 +41,14 @@ export default function Input({
         {...props}
       />
 
-      {error && <Text className="text-red-500 mt-1 text-sm">{error}</Text>}
+      {error && (
+        <Text
+          className={`mt-1 text-sm
+          ${isDark ? "text-errorDark" : "text-errorLight"}`}
+        >
+          {error}
+        </Text>
+      )}
     </View>
   );
 }

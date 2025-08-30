@@ -7,6 +7,10 @@ export const colors = {
   secondaryLight: "#34D399",
   secondaryDark: "#059669",
 
+  // Tertiary colors
+  tertiaryLight: "#8651f3",
+  tertiaryDark: "#5121ba",
+
   // Accent colors
   accentLight: "#F59E0B",
   accentDark: "#D97706",

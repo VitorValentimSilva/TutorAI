@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -11,10 +11,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { Ionicons } from "@expo/vector-icons";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { colors } from "../styles/colors";
 
 export default function Chat() {
+  const { isDark } = useContext(ThemeContext);
+
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView
+      className={`flex-1
+      ${isDark ? "bg-backgroundDark" : "bg-backgroundLight"}`}
+    >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -23,19 +30,32 @@ export default function Chat() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className="flex-1">
             <View className="flex-1 justify-center items-center gap-4 px-6">
-              <Ionicons name="sparkles" size={50} color="#3B82F6" />
+              <Ionicons
+                name="sparkles"
+                size={50}
+                color={isDark ? colors.primaryDark : colors.primaryLight}
+              />
 
               <View className="items-center">
-                <Text className="text-xl font-semibold">
+                <Text
+                  className={`text-xl font-semibold
+                  ${isDark ? "text-textDark" : "text-textLight"}`}
+                >
                   Olá! Como posso ajudar?
                 </Text>
-                <Text className="text-gray-600">
+
+                <Text
+                  className={`${isDark ? "text-textDark" : "text-textLight"}`}
+                >
                   Faça uma pergunta para começar a estudar.
                 </Text>
               </View>
             </View>
 
-            <View className="w-full p-4 flex-row items-center gap-x-2 border-t border-gray-200 bg-white">
+            <View
+              className={`w-full p-4 flex-row items-center gap-x-2 border-t
+              ${isDark ? "border-borderDark bg-backgroundDark/40" : "border-borderLight bg-backgroundLight/40"}`}
+            >
               <Input
                 placeholder="Digite sua pergunta..."
                 required={true}

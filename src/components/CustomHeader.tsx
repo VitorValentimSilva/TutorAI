@@ -1,27 +1,37 @@
+import { useContext } from "react";
 import { SafeAreaView, Text, View } from "react-native";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 interface CustomHeaderProps {
   icon?: React.ReactNode;
   title: string;
   subtitle?: string;
-  backgroundClass?: string;
 }
 
 export default function CustomHeader({
   icon,
   title,
   subtitle,
-  backgroundClass = "bg-[#3B82F6]",
 }: CustomHeaderProps) {
+  const { isDark } = useContext(ThemeContext);
+
   return (
-    <SafeAreaView className={`${backgroundClass} w-full`}>
+    <SafeAreaView className="w-full">
       <View className="items-center justify-center">
         {icon}
-        <Text className="text-white text-[20px] font-extrabold pt-1">
+        <Text
+          className={`text-[20px] font-extrabold pt-1
+          ${isDark ? "text-textInverseDark" : "text-textInverseLight"}`}
+        >
           {title}
         </Text>
         {subtitle ? (
-          <Text className="text-[#e6f0ff] text-[12px] pt-1">{subtitle}</Text>
+          <Text
+            className={`text-[12px] pt-1
+            ${isDark ? "text-textInverseDark" : "text-textInverseLight"}`}
+          >
+            {subtitle}
+          </Text>
         ) : null}
       </View>
     </SafeAreaView>
