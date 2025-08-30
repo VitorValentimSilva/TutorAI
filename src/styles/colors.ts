@@ -25,7 +25,7 @@ export const colors = {
   textLight: "#1F2937",
   textInverseLight: "#FFFFFF",
   textDark: "#F9FAFB",
-  textInverseDark: "#1F2937",
+  textInverseDark: "#b3bbc6",
 
   // Border colors
   borderLight: "#E5E7EB",
