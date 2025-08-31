@@ -1,12 +1,22 @@
 import { useContext } from "react";
-import { Text, TextInput, TextInputProps, View } from "react-native";
+import {
+  Text,
+  TextInput as RNTextInput,
+  TextInputProps,
+  View,
+} from "react-native";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { colors } from "../styles/colors";
 
 interface InputProps extends TextInputProps {
   label?: string;
   placeholder?: string;
   required?: boolean;
   error?: string;
+  multiline?: boolean;
+  numberOfLines?: number;
+  value?: string;
+  onChangeText?: (text: string) => void;
 }
 
 export default function Input({
@@ -14,14 +24,21 @@ export default function Input({
   placeholder,
   required,
   error,
+  multiline = false,
+  numberOfLines = 4,
+  value,
+  onChangeText,
   ...props
 }: InputProps) {
   const { isDark } = useContext(ThemeContext);
 
   return (
-    <View className={`w-full ${props.className ?? ""}`}>
+    <View className="w-3/4">
       {label && (
-        <Text className="text-gray-700 mb-2 text-base">
+        <Text
+          className={`mb-2 text-base
+          ${isDark ? "text-textDark" : "text-textLight"}`}
+        >
           {label}
           {required && (
             <Text
@@ -33,11 +50,17 @@ export default function Input({
         </Text>
       )}
 
-      <TextInput
-        className={`border rounded-lg px-4 py-3 text-base ${
-          error ? "border-red-500" : "border-gray-300"
-        }`}
+      <RNTextInput
+        className={`border rounded-lg px-4 py-2 text-base w-full text-justify
+        ${isDark ? "text-textDark" : "text-textLight"}
+        ${error ? (isDark ? "border-errorDark" : "border-errorLight") : isDark ? "border-borderDark" : "border-borderLight"}`}
         placeholder={placeholder}
+        placeholderTextColor={isDark ? colors.textDark : colors.textLight}
+        multiline={multiline}
+        numberOfLines={multiline ? numberOfLines : 1}
+        textAlignVertical={multiline ? "top" : "center"}
+        value={value}
+        onChangeText={onChangeText}
         {...props}
       />
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -16,6 +16,13 @@ import { colors } from "../styles/colors";
 
 export default function Chat() {
   const { isDark } = useContext(ThemeContext);
+  const [message, setMessage] = useState("");
+  const isButtonDisabled = message.trim().length === 0;
+
+  const handleSend = () => {
+    console.log("Mensagem enviada:", message);
+    setMessage("");
+  };
 
   return (
     <SafeAreaView
@@ -53,16 +60,21 @@ export default function Chat() {
             </View>
 
             <View
-              className={`w-full p-4 flex-row items-center gap-x-2 border-t
-              ${isDark ? "border-borderDark bg-backgroundDark/40" : "border-borderLight bg-backgroundLight/40"}`}
+              className={`w-full flex flex-row items-center gap-4 border-t p-4
+              ${isDark ? "border-borderDark bg-backgroundDark/80" : "border-borderLight bg-backgroundLight/80"}`}
             >
-              <Input
-                placeholder="Digite sua pergunta..."
-                required={true}
-                className="flex-1 mb-0"
-              />
+              <View className="flex-1">
+                <Input
+                  placeholder="Digite sua pergunta..."
+                  required={true}
+                  multiline
+                  numberOfLines={5}
+                  value={message}
+                  onChangeText={setMessage}
+                />
+              </View>
 
-              <Button onPress={() => console.log("Mensagem enviada!")} />
+              <Button onPress={handleSend} disabled={isButtonDisabled} />
             </View>
           </View>
         </TouchableWithoutFeedback>
