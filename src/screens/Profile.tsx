@@ -1,11 +1,13 @@
 import { useContext } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Button, Pressable, Text, View } from "react-native";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { colors } from "../styles/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 export default function Profile() {
   const { isDark, toggle } = useContext(ThemeContext);
+  const { setLanguage } = useContext(LanguageContext);
 
   return (
     <View>
@@ -22,6 +24,11 @@ export default function Profile() {
           color={isDark ? colors.primaryDark : colors.primaryLight}
         />
       </Pressable>
+
+      <View className="flex-row space-x-4">
+        <Button title="PT-BR" onPress={() => setLanguage("ptBR")} />
+        <Button title="EN" onPress={() => setLanguage("en")} />
+      </View>
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -13,9 +13,11 @@ import Button from "../components/Button";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { colors } from "../styles/colors";
+import { useTranslation } from "react-i18next";
 
 export default function Chat() {
   const { isDark } = useContext(ThemeContext);
+  const { t } = useTranslation();
   const [message, setMessage] = useState("");
   const isButtonDisabled = message.trim().length === 0;
 
@@ -48,13 +50,13 @@ export default function Chat() {
                   className={`text-xl font-semibold
                   ${isDark ? "text-textDark" : "text-textLight"}`}
                 >
-                  Olá! Como posso ajudar?
+                  {t("pageChat.title")}
                 </Text>
 
                 <Text
                   className={`${isDark ? "text-textDark" : "text-textLight"}`}
                 >
-                  Faça uma pergunta para começar a estudar.
+                  {t("pageChat.subTitle")}
                 </Text>
               </View>
             </View>
@@ -65,7 +67,7 @@ export default function Chat() {
             >
               <View className="flex-1">
                 <Input
-                  placeholder="Digite sua pergunta..."
+                  placeholder={t("pageChat.placeholder")}
                   required={true}
                   multiline
                   numberOfLines={5}

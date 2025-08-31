@@ -14,6 +14,7 @@ import {
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { colors } from "../styles/colors";
+import { useTranslation } from "react-i18next";
 
 const Tab = createBottomTabNavigator();
 
@@ -46,6 +47,7 @@ function makeHeaderOptions({
 
 export default function TabRoutes() {
   const { isDark } = useContext(ThemeContext);
+  const { t } = useTranslation();
 
   return (
     <Tab.Navigator
@@ -73,7 +75,7 @@ export default function TabRoutes() {
       }}
     >
       <Tab.Screen
-        name="Chat"
+        name={t("navigationPages.chat.name")}
         component={Chat}
         options={makeHeaderOptions({
           tabIcon: ({ focused, color }) =>
@@ -89,14 +91,14 @@ export default function TabRoutes() {
               color={isDark ? colors.textInverseDark : colors.textInverseLight}
             />
           ),
-          title: "TutorAI",
-          subtitle: "Seu tutor pessoal",
+          title: `${t("navigationPages.chat.title")}`,
+          subtitle: `${t("navigationPages.chat.subTitle")}`,
           backgroundColorHex: `${isDark ? colors.primaryDark : colors.primaryLight}`,
         })}
       />
 
       <Tab.Screen
-        name="Quizzes"
+        name={t("navigationPages.quizzes.name")}
         component={Quizzes}
         options={makeHeaderOptions({
           tabIcon: ({ focused, color }) =>
@@ -112,14 +114,14 @@ export default function TabRoutes() {
               color={isDark ? colors.textInverseDark : colors.textInverseLight}
             />
           ),
-          title: "Quizzes",
-          subtitle: "Teste seus conhecimentos",
+          title: `${t("navigationPages.quizzes.title")}`,
+          subtitle: `${t("navigationPages.quizzes.subTitle")}`,
           backgroundColorHex: `${isDark ? colors.secondaryDark : colors.secondaryLight}`,
         })}
       />
 
       <Tab.Screen
-        name="Histórico"
+        name={t("navigationPages.history.name")}
         component={History}
         options={makeHeaderOptions({
           tabIcon: ({ color }) => (
@@ -132,14 +134,14 @@ export default function TabRoutes() {
               color={isDark ? colors.textInverseDark : colors.textInverseLight}
             />
           ),
-          title: "Histórico",
-          subtitle: "Acompanhe seu progresso",
+          title: `${t("navigationPages.history.title")}`,
+          subtitle: `${t("navigationPages.history.subTitle")}`,
           backgroundColorHex: `${isDark ? colors.tertiaryDark : colors.tertiaryLight}`,
         })}
       />
 
       <Tab.Screen
-        name="Perfil"
+        name={t("navigationPages.profile.name")}
         component={Profile}
         options={{
           tabBarIcon: ({

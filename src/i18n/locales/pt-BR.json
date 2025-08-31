@@ -1,0 +1,27 @@
+{
+  "navigationPages": {
+    "chat": {
+      "name": "Chat",
+      "title": "TutorIA",
+      "subTitle": "Seu tutor pessoal"
+    },
+    "quizzes": {
+      "name": "Testes",
+      "title": "Testes",
+      "subTitle": "Teste seus conhecimentos"
+    },
+    "history": {
+      "name": "Histórico",
+      "title": "Histórico",
+      "subTitle": "Acompanhe seu progresso"
+    },
+    "profile": {
+      "name": "Perfil"
+    }
+  },
+  "pageChat": {
+    "title": "Olá! Como posso ajudar?",
+    "subTitle": "Faça uma pergunta para começar a estudar.",
+    "placeholder": "Digite sua pergunta..."
+  }
+}

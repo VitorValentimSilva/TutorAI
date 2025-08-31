@@ -1,0 +1,27 @@
+{
+  "navigationPages": {
+    "chat": {
+      "name": "Chat",
+      "title": "TutorAI",
+      "subTitle": "Your personal tutor"
+    },
+    "quizzes": {
+      "name": "Quizzes",
+      "title": "Quizzes",
+      "subTitle": "Test your knowledge"
+    },
+    "history": {
+      "name": "History",
+      "title": "History",
+      "subTitle": "Track your progress"
+    },
+    "profile": {
+      "name": "Profile"
+    }
+  },
+  "pageChat": {
+    "title": "Hello! How can I help?",
+    "subTitle": "Ask a question to start studying.",
+    "placeholder": "Enter your question..."
+  }
+}
