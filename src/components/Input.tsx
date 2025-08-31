@@ -33,7 +33,7 @@ export default function Input({
   const { isDark } = useContext(ThemeContext);
 
   return (
-    <View className="w-3/4">
+    <View>
       {label && (
         <Text
           className={`mb-2 text-base
