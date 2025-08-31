@@ -123,7 +123,7 @@ export default function TabRoutes() {
         component={History}
         options={makeHeaderOptions({
           tabIcon: ({ color }) => (
-            <FontAwesome5 name="history" size={22} color={color} />
+            <FontAwesome5 name="history" size={21} color={color} />
           ),
           headerIcon: (
             <FontAwesome5
