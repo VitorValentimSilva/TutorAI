@@ -1,11 +1,5 @@
-import { useContext, useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  View,
-  Text,
-  ScrollView,
-} from "react-native";
+import { useContext } from "react";
+import { KeyboardAvoidingView, Platform, View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -13,39 +7,22 @@ import { Ionicons } from "@expo/vector-icons";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { colors } from "../styles/colors";
 import { useTranslation } from "react-i18next";
-import { enviarPerguntaIA } from "../services/iaAgent";
-import MarkdownRenderer from "../components/MarkdownRenderer";
+import MessageList from "../components/MessageList";
+import useChat from "../hooks/useChat";
 
 export default function Chat() {
   const { isDark } = useContext(ThemeContext);
   const { t } = useTranslation();
-  const [message, setMessage] = useState("");
-  const [resposta, setResposta] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
-  const [ultimaMensagem, setUltimaMensagem] = useState("");
-  const isButtonDisabled = message.trim().length === 0;
-
-  const handleSend = async () => {
-    setShowIntro(false);
-    setLoading(true);
-    setResposta("A IA está pensando...");
-
-    const userMessage = message;
-
-    setUltimaMensagem(userMessage);
-    setMessage("");
-
-    try {
-      const result = await enviarPerguntaIA({ chatInput: userMessage });
-
-      setResposta(result.output);
-    } catch (error) {
-      setResposta("Erro ao obter resposta da IA");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    message,
+    setMessage,
+    resposta,
+    loading,
+    showIntro,
+    ultimaMensagem,
+    isButtonDisabled,
+    handleSend,
+  } = useChat();
 
   return (
     <SafeAreaView
@@ -81,53 +58,7 @@ export default function Chat() {
               </View>
             </View>
           ) : (
-            <View style={{ flex: 1 }}>
-              <ScrollView
-                keyboardShouldPersistTaps="handled"
-                style={{ flex: 1 }}
-                contentContainerStyle={{
-                  paddingHorizontal: 16,
-                  paddingBottom: 16,
-                  flexGrow: 1,
-                }}
-              >
-                <View>
-                  <Text
-                    className={`text-lg font-semibold mb-2
-                    ${isDark ? "text-textDark" : "text-textLight"}`}
-                  >
-                    Você:
-                  </Text>
-
-                  <Text
-                    className={`mb-4 
-                    ${isDark ? "text-textDark" : "text-textLight"}`}
-                  >
-                    {ultimaMensagem || "Mensagem enviada"}
-                  </Text>
-                </View>
-
-                <View>
-                  <Text
-                    className={`text-lg font-semibold mb-2 
-                    ${isDark ? "text-textDark" : "text-textLight"}`}
-                  >
-                    IA:
-                  </Text>
-
-                  <View
-                    style={{
-                      marginBottom: 8,
-                      width: "100%",
-                      alignSelf: "stretch",
-                    }}
-                    className="text-justify"
-                  >
-                    <MarkdownRenderer content={resposta} />
-                  </View>
-                </View>
-              </ScrollView>
-            </View>
+            <MessageList ultimaMensagem={ultimaMensagem} resposta={resposta} />
           )}
 
           <View
