@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { enviarPerguntaIA } from "../services/iaAgent";
+import { LanguageContext } from "../contexts/LanguageContext";
+import { useTranslation } from "react-i18next";
 
 export default function useChat() {
   const [message, setMessage] = useState("");
@@ -7,24 +9,28 @@ export default function useChat() {
   const [loading, setLoading] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
   const [ultimaMensagem, setUltimaMensagem] = useState("");
-
+  const { language } = useContext(LanguageContext);
+  const { t } = useTranslation();
   const isButtonDisabled = message.trim().length === 0;
 
   const handleSend = async () => {
     if (isButtonDisabled) return;
     setShowIntro(false);
     setLoading(true);
-    setResposta("A IA está pensando...");
+    setResposta(`${t("pageChat.thinking")}`);
     const userMessage = message;
     setUltimaMensagem(userMessage);
     setMessage("");
 
     try {
-      const result = await enviarPerguntaIA({ chatInput: userMessage });
-      setResposta(result.output ?? "Resposta vazia");
+      const result = await enviarPerguntaIA({
+        chatInput: userMessage,
+        lang: language,
+      });
+      setResposta(result.output ?? `${t("pageChat.empty")}`);
     } catch (err) {
       console.error("Erro ao chamar IA:", err);
-      setResposta("Erro ao obter resposta da IA");
+      setResposta(`${t("pageChat.error")}`);
     } finally {
       setLoading(false);
     }

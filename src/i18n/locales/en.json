@@ -22,6 +22,11 @@
   "pageChat": {
     "title": "Hello! How can I help?",
     "subTitle": "Ask a question to start studying.",
-    "placeholder": "Enter your question..."
+    "placeholder": "Enter your question...",
+    "you": "You:",
+    "ai": "AI:",
+    "thinking": "The AI is thinking...",
+    "empty": "Empty response",
+    "error": "Error getting response from AI"
   }
 }

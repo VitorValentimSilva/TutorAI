@@ -22,6 +22,11 @@
   "pageChat": {
     "title": "Olá! Como posso ajudar?",
     "subTitle": "Faça uma pergunta para começar a estudar.",
-    "placeholder": "Digite sua pergunta..."
+    "placeholder": "Digite sua pergunta...",
+    "you": "Você:",
+    "ai": "IA:",
+    "thinking": "A IA está pensando...",
+    "empty": "Resposta vazia",
+    "error": "Erro ao obter resposta da IA"
   }
 }

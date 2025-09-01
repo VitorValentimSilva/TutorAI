@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ScrollView, View, Text } from "react-native";
 import MarkdownRenderer from "./MarkdownRenderer";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface MessageListProps {
   ultimaMensagem: string;
@@ -13,6 +14,7 @@ export default function MessageList({
   resposta,
 }: MessageListProps) {
   const { isDark } = useContext(ThemeContext);
+  const { t } = useTranslation();
 
   return (
     <ScrollView
@@ -29,7 +31,7 @@ export default function MessageList({
           className={`text-lg font-semibold mb-2 
           ${isDark ? "text-textDark" : "text-textLight"}`}
         >
-          Você:
+          {t("pageChat.you")}
         </Text>
 
         <Text
@@ -45,7 +47,7 @@ export default function MessageList({
           className={`text-lg font-semibold mb-2 
           ${isDark ? "text-textDark" : "text-textLight"}`}
         >
-          IA:
+          {t("pageChat.ai")}
         </Text>
 
         <View

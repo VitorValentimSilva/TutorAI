@@ -26,7 +26,7 @@ export const setAppLanguage = async (lang: string) => {
 
 export const getAppLanguage = async (): Promise<string> => {
   const lang = await AsyncStorage.getItem(LANG_KEY);
-  return lang || "pt";
+  return lang || "ptBR";
 };
 
 export default i18n;
