@@ -1,9 +1,7 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
   View,
   Text,
   ScrollView,
@@ -16,6 +14,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 import { colors } from "../styles/colors";
 import { useTranslation } from "react-i18next";
 import { enviarPerguntaIA } from "../services/iaAgent";
+import MarkdownRenderer from "../components/MarkdownRenderer";
 
 export default function Chat() {
   const { isDark } = useContext(ThemeContext);
@@ -116,11 +115,16 @@ export default function Chat() {
                     IA:
                   </Text>
 
-                  <Text
-                    className={`${isDark ? "text-textDark" : "text-textLight"}`}
+                  <View
+                    style={{
+                      marginBottom: 8,
+                      width: "100%",
+                      alignSelf: "stretch",
+                    }}
+                    className="text-justify"
                   >
-                    {resposta}
-                  </Text>
+                    <MarkdownRenderer content={resposta} />
+                  </View>
                 </View>
               </ScrollView>
             </View>
