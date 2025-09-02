@@ -8,8 +8,16 @@ const Stack = createStackNavigator();
 export default function StackRoutes() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="CreateAccount" component={CreateAccount} />
-      <Stack.Screen name="LoginAccount" component={LoginAccount} />
+      <Stack.Screen
+        name="CreateAccount"
+        component={CreateAccount}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="LoginAccount"
+        component={LoginAccount}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Home"
         component={TabRoutes}

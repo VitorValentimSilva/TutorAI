@@ -2,9 +2,10 @@ import { View, Pressable, Text } from "react-native";
 import { useForm, FormProvider, Controller } from "react-hook-form";
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { loginSchema, signupSchema } from "../schemas/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "./Input";
+import { useSchemas } from "../schemas/authSchema";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   isSignUp: boolean;
@@ -24,7 +25,9 @@ type FormValues = {
 
 export default function FormAuth({ isSignUp, onSubmit, onSwitchMode }: Props) {
   const { isDark } = useContext(ThemeContext);
+  const { loginSchema, signupSchema } = useSchemas();
   const schema = isSignUp ? signupSchema : loginSchema;
+  const { t } = useTranslation();
 
   const methods = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -38,23 +41,16 @@ export default function FormAuth({ isSignUp, onSubmit, onSwitchMode }: Props) {
   return (
     <FormProvider {...methods}>
       <View
-        className={`w-full px-5 py-4 rounded-2xl
+        className={`w-full p-6 rounded-2xl
         ${isDark ? "bg-surfaceDark" : "bg-surfaceLight"}`}
       >
-        <Text
-          className={`text-3xl font-bold mb-6 text-center
-          ${isDark ? "text-textDark" : "text-textLight"}`}
-        >
-          {isSignUp ? "Criar Nova Conta" : "Bem-vindo de Volta"}
-        </Text>
-
         <Controller
           control={methods.control}
           name="email"
           render={({ field, fieldState }) => (
             <Input
-              label="E-mail"
-              placeholder="seu@email.com"
+              label={t("inputs.inputEmail")}
+              placeholder={t("inputs.placeholderEmail")}
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
@@ -70,7 +66,7 @@ export default function FormAuth({ isSignUp, onSubmit, onSwitchMode }: Props) {
           name="password"
           render={({ field, fieldState }) => (
             <Input
-              label="Senha"
+              label={t("inputs.inputPassword")}
               placeholder="••••••"
               secureTextEntry
               autoCapitalize="none"
@@ -87,7 +83,7 @@ export default function FormAuth({ isSignUp, onSubmit, onSwitchMode }: Props) {
             name="confirmPassword"
             render={({ field, fieldState }) => (
               <Input
-                label="Confirme a Senha"
+                label={t("inputs.inputConfirmPassword")}
                 placeholder="••••••"
                 secureTextEntry
                 autoCapitalize="none"
@@ -99,27 +95,83 @@ export default function FormAuth({ isSignUp, onSubmit, onSwitchMode }: Props) {
           />
         )}
 
-        <View className="mt-5">
+        {!isSignUp && (
+          <View className="flex flex-row items-center justify-between w-full">
+            <View>
+              <Text
+                className={`text-sm
+                ${isDark ? "text-textDark/60" : "text-textLight/60"}`}
+              >
+                {t("navigationPages.login.rememberMe")}
+              </Text>
+            </View>
+
+            <Pressable>
+              <Text
+                className={`text-sm
+                ${isDark ? "text-secondaryDark" : "text-secondaryLight"}`}
+              >
+                {t("navigationPages.login.forgotPassword")}
+              </Text>
+            </Pressable>
+          </View>
+        )}
+
+        <View
+          className={`mt-7 w-full items-center rounded-xl py-4
+          ${isDark ? "bg-primaryDark" : "bg-primaryLight"}`}
+        >
           <Pressable onPress={handleSubmit(onSubmit)}>
             <Text
               className={`text-base font-semibold
               ${isDark ? "text-textDark" : "text-textLight"}`}
             >
-              {isSignUp ? "Criar Conta" : "Entrar"}
+              {isSignUp
+                ? `${t("navigationPages.createAccount.buttonText")}`
+                : `${t("navigationPages.login.buttonText")}`}
             </Text>
           </Pressable>
+        </View>
+
+        <View className="my-7 flex-row items-center">
+          <View
+            className={`flex-1 h-px 
+            ${isDark ? "bg-borderDark" : "bg-borderLight"}`}
+          />
+
+          <Text
+            className={`mx-4 text-center text-base
+            ${isDark ? "text-textDark/80" : "text-textLight/80"}`}
+          >
+            {isSignUp
+              ? `${t("navigationPages.createAccount.orWith")}`
+              : `${t("navigationPages.login.orWith")}`}
+          </Text>
 
           <View
-            className={`flex-row items-center justify-center my-3 border-t
-            ${isDark ? "border-borderDark" : "border-borderLight"}`}
-          ></View>
+            className={`flex-1 h-px 
+            ${isDark ? "bg-borderDark" : "bg-borderLight"}`}
+          />
+        </View>
+
+        <View className="flex flex-row items-center gap-2 justify-center">
+          <Text
+            className={`text-base
+            ${isDark ? "text-textDark/80" : "text-textLight/80"}`}
+          >
+            {isSignUp
+              ? `${t("navigationPages.createAccount.haveAccount1")}`
+              : `${t("navigationPages.login.haveAccount1")}`}
+          </Text>
 
           <Pressable onPress={onSwitchMode}>
             <Text
-              className={`text-base font-semibold
+              className={`text-base
               ${isDark ? "text-primaryDark" : "text-primaryLight"}`}
             >
-              {isSignUp ? "Já tem uma conta? Entrar" : "Criar nova conta"}
+              {isSignUp
+                ? `${t("navigationPages.createAccount.haveAccount2")}`
+                : `${t("navigationPages.login.haveAccount2")}`}
             </Text>
           </Pressable>
         </View>

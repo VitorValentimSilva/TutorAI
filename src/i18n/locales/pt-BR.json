@@ -1,5 +1,23 @@
 {
   "navigationPages": {
+    "createAccount": {
+      "title": "Criar conta",
+      "subTitle": "Crie uma conta para explorar nosso aplicativo",
+      "buttonText": "Criar Conta",
+      "orWith": "Ou crie com",
+      "haveAccount1": "Já tem uma conta?",
+      "haveAccount2": "Entrar"
+    },
+    "login": {
+      "title": "Entre na sua conta",
+      "subTitle": "Digite seu e-mail e senha para fazer login",
+      "rememberMe": "Lembre de mim",
+      "forgotPassword": "Esqueceu sua senha ?",
+      "buttonText": "Entrar",
+      "orWith": "Ou faça login com",
+      "haveAccount1": "Não tem uma conta?",
+      "haveAccount2": "Criar conta"
+    },
     "chat": {
       "name": "Chat",
       "title": "TutorIA",
@@ -28,5 +46,28 @@
     "thinking": "A IA está pensando...",
     "empty": "Resposta vazia",
     "error": "Erro ao obter resposta da IA"
+  },
+  "zodSchemas": {
+    "authSchema": {
+      "email": "E-mail inválido",
+      "password": "Mínimo de 6 caracteres",
+      "confirmPassword": "Senhas devem ser iguais"
+    }
+  },
+  "firebaseErrors": {
+    "error": "Ocorreu um erro. Tente novamente.",
+    "auth": {
+      "invalidCredential": "E-mail ou senha inválidos.",
+      "userNotFound": "Conta não encontrada.",
+      "wrongPassword": "Senha incorreta.",
+      "emailAlreadyInUse": "Este e-mail já está em uso.",
+      "tooManyRequests": "Muitas tentativas. Tente mais tarde."
+    }
+  },
+  "inputs": {
+    "inputEmail": "E-mail",
+    "placeholderEmail": "seu@email.com",
+    "inputPassword": "Senha",
+    "inputConfirmPassword": "Confirme a Senha"
   }
 }

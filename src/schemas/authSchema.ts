@@ -1,21 +1,27 @@
-import { z } from "zod";
+import { useTranslation } from "react-i18next";
+import z from "zod/v3";
 
-const baseSchema = {
-  email: z.email({ message: "E-mail inválido" }),
-  password: z.string().min(6, { message: "Mínimo de 6 caracteres" }),
+export const useSchemas = () => {
+  const { t } = useTranslation();
+
+  const baseSchema = {
+    email: z.string().email({ message: t("zodSchemas.authSchema.email") }),
+    password: z
+      .string()
+      .min(6, { message: t("zodSchemas.authSchema.password") }),
+  };
+
+  const loginSchema = z.object(baseSchema);
+
+  const signupSchema = z
+    .object({
+      ...baseSchema,
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.confirmPassword === data.password, {
+      path: ["confirmPassword"],
+      message: t("zodSchemas.authSchema.confirmPassword"),
+    });
+
+  return { loginSchema, signupSchema };
 };
-
-export const loginSchema = z.object(baseSchema);
-
-export const signupSchema = z
-  .object({
-    ...baseSchema,
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.confirmPassword === data.password, {
-    path: ["confirmPassword"],
-    message: "Senhas devem ser iguais",
-  });
-
-export type SignupFormValues = z.infer<typeof signupSchema>;
-export type LoginFormValues = z.infer<typeof loginSchema>;

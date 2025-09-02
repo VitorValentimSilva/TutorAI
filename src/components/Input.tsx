@@ -33,10 +33,10 @@ export default function Input({
   const { isDark } = useContext(ThemeContext);
 
   return (
-    <View>
+    <View className="pb-4">
       {label && (
         <Text
-          className={`mb-2 text-base
+          className={`mb-1 text-base font-bold
           ${isDark ? "text-textDark" : "text-textLight"}`}
         >
           {label}

@@ -1,5 +1,23 @@
 {
   "navigationPages": {
+    "createAccount": {
+      "title": "Sign Up",
+      "subTitle": "Create an account to explore our app",
+      "buttonText": "Create Account",
+      "orWith": "Or create with",
+      "haveAccount1": "Already have an account?",
+      "haveAccount2": "Sign Up"
+    },
+    "login": {
+      "title": "Sign in to your Account",
+      "subTitle": "Enter your email and password to log in",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot Password ?",
+      "buttonText": "Log In",
+      "orWith": "Or login with",
+      "haveAccount1": "Don’t have an account?",
+      "haveAccount2": "Log In"
+    },
     "chat": {
       "name": "Chat",
       "title": "TutorAI",
@@ -28,5 +46,28 @@
     "thinking": "The AI is thinking...",
     "empty": "Empty response",
     "error": "Error getting response from AI"
+  },
+  "zodSchemas": {
+    "authSchema": {
+      "email": "Invalid email",
+      "password": "Minimum of 6 characters",
+      "confirmPassword": "Passwords must be the same"
+    }
+  },
+  "firebaseErrors": {
+    "error": "An error has occurred. Please try again.",
+    "auth": {
+      "invalidCredential": "Invalid email or password.",
+      "userNotFound": "Account not found.",
+      "wrongPassword": "Incorrect password.",
+      "emailAlreadyInUse": "This email is already in use.",
+      "tooManyRequests": "Too many attempts. Try again later."
+    }
+  },
+  "inputs": {
+    "inputEmail": "E-mail",
+    "placeholderEmail": "your@email.com",
+    "inputPassword": "Password",
+    "inputConfirmPassword": "Confirm Password"
   }
 }
