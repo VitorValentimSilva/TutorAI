@@ -1,21 +1,18 @@
-import { View, Pressable, Text } from "react-native";
+import {
+  View,
+  Pressable,
+  Text,
+  ActivityIndicator,
+  Keyboard,
+} from "react-native";
 import { useForm, FormProvider, Controller } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "./Input";
 import { useSchemas } from "../schemas/authSchema";
 import { useTranslation } from "react-i18next";
-
-type Props = {
-  isSignUp: boolean;
-  onSubmit: (values: {
-    email: string;
-    password: string;
-    confirmPassword?: string;
-  }) => void;
-  onSwitchMode: () => void;
-};
+import { colors } from "../styles/colors";
 
 type FormValues = {
   email: string;
@@ -23,11 +20,18 @@ type FormValues = {
   confirmPassword?: string;
 };
 
-export default function FormAuth({ isSignUp, onSubmit, onSwitchMode }: Props) {
+type Props = {
+  isSignUp: boolean;
+  onSwitchMode: () => void;
+  onSubmit: (values: FormValues) => Promise<void>;
+};
+
+export default function FormAuth({ isSignUp, onSwitchMode, onSubmit }: Props) {
   const { isDark } = useContext(ThemeContext);
   const { loginSchema, signupSchema } = useSchemas();
   const schema = isSignUp ? signupSchema : loginSchema;
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const methods = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -37,6 +41,16 @@ export default function FormAuth({ isSignUp, onSubmit, onSwitchMode }: Props) {
   });
 
   const { handleSubmit } = methods;
+
+  const submitHandler = async (values: FormValues) => {
+    setIsLoading(true);
+    Keyboard.dismiss();
+    try {
+      await onSubmit(values);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <FormProvider {...methods}>
@@ -117,21 +131,28 @@ export default function FormAuth({ isSignUp, onSubmit, onSwitchMode }: Props) {
           </View>
         )}
 
-        <View
+        <Pressable
+          onPress={handleSubmit(submitHandler)}
+          disabled={isLoading}
           className={`mt-7 w-full items-center rounded-xl py-4
           ${isDark ? "bg-primaryDark" : "bg-primaryLight"}`}
         >
-          <Pressable onPress={handleSubmit(onSubmit)}>
+          {isLoading ? (
+            <ActivityIndicator
+              size="small"
+              color={isDark ? colors.textDark : colors.textLight}
+            />
+          ) : (
             <Text
-              className={`text-base font-semibold
-              ${isDark ? "text-textDark" : "text-textLight"}`}
+              className={`text-base font-semibold 
+                ${isDark ? "text-textDark" : "text-textLight"}`}
             >
               {isSignUp
-                ? `${t("navigationPages.createAccount.buttonText")}`
-                : `${t("navigationPages.login.buttonText")}`}
+                ? t("navigationPages.createAccount.buttonText")
+                : t("navigationPages.login.buttonText")}
             </Text>
-          </Pressable>
-        </View>
+          )}
+        </Pressable>
 
         <View className="my-7 flex-row items-center">
           <View

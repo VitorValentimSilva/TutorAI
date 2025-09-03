@@ -11,17 +11,26 @@ export default function StackRoutes() {
       <Stack.Screen
         name="CreateAccount"
         component={CreateAccount}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          animation: "slide_from_left",
+        }}
       />
       <Stack.Screen
         name="LoginAccount"
         component={LoginAccount}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          animation: "slide_from_right",
+        }}
       />
       <Stack.Screen
         name="Home"
         component={TabRoutes}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          animation: "fade",
+        }}
       />
     </Stack.Navigator>
   );

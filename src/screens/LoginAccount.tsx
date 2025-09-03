@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { View, Alert, ScrollView, Text, Pressable } from "react-native";
+import { View, Alert, ScrollView, Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useAuth } from "../contexts/AuthContext";
 import { ThemeContext } from "../contexts/ThemeContext";
@@ -17,15 +17,6 @@ export const LoginAccount = ({ navigation }: Props) => {
   const { signIn } = useAuth();
   const { isDark } = useContext(ThemeContext);
   const { t } = useTranslation();
-
-  const handleSubmit = async (values: { email: string; password: string }) => {
-    try {
-      await signIn(values.email, values.password);
-      navigation.navigate("Home");
-    } catch (error: any) {
-      Alert.alert("Erro no login", getFirebaseErrorMessage(error.code, t));
-    }
-  };
 
   return (
     <LinearGradient
@@ -59,8 +50,18 @@ export const LoginAccount = ({ navigation }: Props) => {
         <View>
           <FormAuth
             isSignUp={false}
-            onSubmit={handleSubmit}
             onSwitchMode={() => navigation.navigate("CreateAccount")}
+            onSubmit={async (values) => {
+              try {
+                await signIn(values.email, values.password);
+                navigation.navigate("Home");
+              } catch (error: any) {
+                Alert.alert(
+                  "Erro no login",
+                  getFirebaseErrorMessage(error.code, t)
+                );
+              }
+            }}
           />
         </View>
       </ScrollView>

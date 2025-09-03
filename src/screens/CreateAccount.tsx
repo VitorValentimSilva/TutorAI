@@ -18,18 +18,6 @@ export const CreateAccount = ({ navigation }: Props) => {
   const { isDark } = useContext(ThemeContext);
   const { t } = useTranslation();
 
-  const handleSubmit = async (values: { email: string; password: string }) => {
-    try {
-      await signUp(values.email, values.password);
-      navigation.navigate("Home");
-    } catch (error: any) {
-      Alert.alert(
-        "Erro no criar conta",
-        getFirebaseErrorMessage(error.code, t)
-      );
-    }
-  };
-
   return (
     <LinearGradient
       colors={
@@ -62,8 +50,18 @@ export const CreateAccount = ({ navigation }: Props) => {
         <View>
           <FormAuth
             isSignUp={true}
-            onSubmit={handleSubmit}
             onSwitchMode={() => navigation.navigate("LoginAccount")}
+            onSubmit={async (values) => {
+              try {
+                await signUp(values.email, values.password);
+                navigation.navigate("Home");
+              } catch (error: any) {
+                Alert.alert(
+                  "Erro no login",
+                  getFirebaseErrorMessage(error.code, t)
+                );
+              }
+            }}
           />
         </View>
       </ScrollView>
