@@ -61,7 +61,13 @@
       "userNotFound": "Account not found.",
       "wrongPassword": "Incorrect password.",
       "emailAlreadyInUse": "This email is already in use.",
-      "tooManyRequests": "Too many attempts. Try again later."
+      "tooManyRequests": "Too many attempts. Try again later.",
+      "invalidEmail": "Invalid email.",
+      "weakPassword": "The password is too weak.",
+      "verifyEmailTitle": "Check your email",
+      "verifyEmailMessage": "We've sent a link to confirm your email address. After verifying, log in.",
+      "emailNotVerifiedTitle": "Email not verified",
+      "emailNotVerifiedMessage": "Please check your inbox to confirm your email before continuing."
     }
   },
   "inputs": {

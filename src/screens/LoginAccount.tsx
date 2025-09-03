@@ -56,10 +56,17 @@ export const LoginAccount = ({ navigation }: Props) => {
                 await signIn(values.email, values.password);
                 navigation.navigate("Home");
               } catch (error: any) {
-                Alert.alert(
-                  "Erro no login",
-                  getFirebaseErrorMessage(error.code, t)
-                );
+                if (error.message === "EMAIL_NOT_VERIFIED") {
+                  Alert.alert(
+                    t("auth.emailNotVerifiedTitle"),
+                    t("auth.emailNotVerifiedMessage")
+                  );
+                } else {
+                  Alert.alert(
+                    t("auth.loginErrorTitle"),
+                    getFirebaseErrorMessage(error.code, t)
+                  );
+                }
               }
             }}
           />

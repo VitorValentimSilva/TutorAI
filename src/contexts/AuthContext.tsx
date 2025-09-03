@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
 
@@ -36,6 +37,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         email,
         password
       );
+
+      if (!userCredential.user.emailVerified) {
+        await signOut(auth);
+        throw new Error("EMAIL_NOT_VERIFIED");
+      }
+
       return userCredential.user;
     } catch (error) {
       console.error("Erro no login:", error);
@@ -48,7 +55,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUp = async (email: string, password: string) => {
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredential.user) {
+        await sendEmailVerification(userCredential.user);
+        console.log("E-mail de verificação enviado!");
+      }
     } catch (error) {
       console.error("Erro no cadastro:", error);
       throw error;

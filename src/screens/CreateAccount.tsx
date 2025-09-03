@@ -54,10 +54,14 @@ export const CreateAccount = ({ navigation }: Props) => {
             onSubmit={async (values) => {
               try {
                 await signUp(values.email, values.password);
-                navigation.navigate("Home");
+                Alert.alert(
+                  t("auth.verifyEmailTitle"),
+                  t("auth.verifyEmailMessage")
+                );
+                navigation.replace("LoginAccount");
               } catch (error: any) {
                 Alert.alert(
-                  "Erro no login",
+                  t("auth.signUpErrorTitle"),
                   getFirebaseErrorMessage(error.code, t)
                 );
               }

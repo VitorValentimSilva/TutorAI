@@ -61,7 +61,13 @@
       "userNotFound": "Conta não encontrada.",
       "wrongPassword": "Senha incorreta.",
       "emailAlreadyInUse": "Este e-mail já está em uso.",
-      "tooManyRequests": "Muitas tentativas. Tente mais tarde."
+      "tooManyRequests": "Muitas tentativas. Tente mais tarde.",
+      "invalidEmail": "E-mail inválido.",
+      "weakPassword": "A senha é muito fraca.",
+      "verifyEmailTitle": "Verifique seu e-mail",
+      "verifyEmailMessage": "Enviamos um link para confirmar seu endereço de e-mail. Após verificar, faça login.",
+      "emailNotVerifiedTitle": "E-mail não verificado",
+      "emailNotVerifiedMessage": "Verifique sua caixa de entrada para confirmar seu e-mail antes de continuar."
     }
   },
   "inputs": {
